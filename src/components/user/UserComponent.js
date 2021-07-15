@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
-import './User.style.css';
 
-class UserComponent extends Component {
+class UserComponent extends Component {    
     render() {
-      let {item, clsName} = this.props;
+
+      let {item, selectThisUser} = this.props;
+
         return (
-            <div className = {clsName}>
-               <h3>
-                 {item.name } - {item.age} - {item.status.toString()}
-               </h3>
+            <div>
+              {item.id} - {item.name}
+              <button onClick={() => selectThisUser(item.id)}>Chose me</button>
             </div>
         );
     }
