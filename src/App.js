@@ -1,28 +1,35 @@
 import React, { Component } from 'react';
-import UserComponent from './components/user/UserComponent';
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link
+  } from "react-router-dom";
+import AllPostsComponent from './components/all-posts/AllPostsComponent';
+import AllUsersComponent from './components/all-users/AllUsersComponent';
 
 class App extends Component {
-
-    users = [
-        {name: 'Lili', age: 24, status: true},
-        {name: 'Oleh', age: 28, status: true},
-        {name: 'Nastya', age: 10, status: false},
-        {name: 'Oleksii', age: 20, status: false},
-        {name: 'Andrii', age: 23, status: true}
-    ]
 
     render() {
 
         return (
-            <div>
-               {this.users.map((value, index) => {
-                   let name = 'target';
-                   if(index % 2) {
-                       name = 'point';
-                   }
-                   return (<UserComponent item={value} clsName={name} key={index}/>)
-               })}
-            </div>
+            <Router>
+                <div>
+                   <div>
+                        <Link to={'/users'}>Users</Link>
+                   </div>
+                    <div>
+                        <Link to={'/posts'}>Posts</Link>
+                    </div>
+
+                    <Switch>
+                        <Route path={'/users'} render={() => {
+                            return <AllUsersComponent/>
+                        }}/>
+                        <Route path={'/posts'} component={AllPostsComponent}/>
+                    </Switch>
+                </div>
+            </Router>
         );
     }
 }

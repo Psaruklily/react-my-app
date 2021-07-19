@@ -1,17 +1,24 @@
 import React, { Component } from 'react';
-import './User.style.css';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  withRouter
+} from "react-router-dom";
 
 class UserComponent extends Component {
+
     render() {
-      let {item, clsName} = this.props;
+      // console.log(this.props);
+      let {item, match:{url}} = this.props;
+      
         return (
-            <div className = {clsName}>
-               <h3>
-                 {item.name } - {item.age} - {item.status.toString()}
-               </h3>
+            <div>
+                {item.id} - {item.name} - <Link to={`${url}/${item.id}`}>info</Link>
             </div>
         );
     }
 }
 
-export default UserComponent;
+export default withRouter(UserComponent);
