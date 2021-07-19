@@ -3,12 +3,14 @@ import React, { Component } from 'react';
 class UserComponent extends Component {    
     render() {
 
-      let {item, selectThisUser} = this.props;
+      let {item, selectThisUser, isShowButton} = this.props;
 
         return (
             <div>
               {item.id} - {item.name}
-              <button onClick={() => selectThisUser(item.id)}>Chose me</button>
+              {
+                isShowButton && <button onClick={() => selectThisUser(item.id)}>Chose me</button>
+              }
             </div>
         );
     }

@@ -40,10 +40,12 @@ class AllUsersComponent extends Component {
           item={value} 
           key={value.id}
           selectThisUser={this.selectThisUser}
+          isShowButton={true}
         />)}
 
         <hr/>
-        {chosenUser && <UserComponent item={chosenUser}/>}
+        {chosenUser && <UserComponent item={chosenUser} isShowButton={false}/>}
+        <hr/>
       </div>
     );
   }
