@@ -32,7 +32,7 @@ class AllUsersComponent extends Component {
               <div className='nest'>
                 <Switch>
                   <Route path={'/users/:id'} render={(props) => {
-                   console.log(props);
+                     console.log(props);
                     return 'asasa'
                   }}/>
                 </Switch>

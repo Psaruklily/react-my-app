@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { PostsService } from '../services/PostsService';
+import PostComponent from '../post/PostComponent';
 
 class AllPostsComponent extends Component {
 
@@ -8,14 +9,19 @@ class AllPostsComponent extends Component {
 
   async componentDidMount() {
     let posts = await this.postsService.getAllPosts();
-    this.setState({posts});
+    let tenPosts = posts.slice(0, 10);
+    this.setState({posts: tenPosts});
   }
 
     render() {
 
+      let {posts} = this.state;
+
         return (
             <div>
-              All posts are here!
+              {
+                posts.map(post => <PostComponent item={post} key={post.id}/>)
+              }
             </div>
         );
     }
