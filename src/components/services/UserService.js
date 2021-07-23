@@ -8,7 +8,7 @@ export class UserService {
     }
 
     async getUser(id) {
-        return await fetch(`${this.url}/${id}`)
+        return await fetch(this.url + `/${id}`)
             .then(value => value.json())
     }
 

@@ -6,8 +6,10 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
+  Link,
+  withRouter
 } from "react-router-dom";
+import FullUser from '../fullUser/FullUser';
 
 class AllUsersComponent extends Component {
 
@@ -22,7 +24,8 @@ class AllUsersComponent extends Component {
     render() {
 
       let {users} = this.state;
-
+      let {match:{url}} = this.props;
+      // console.log(this.props)
         return (
             <div>
               {
@@ -31,9 +34,9 @@ class AllUsersComponent extends Component {
 
               <div className='nest'>
                 <Switch>
-                  <Route path={'/users/:id'} render={(props) => {
-                     console.log(props);
-                    return 'asasa'
+                  <Route path={url + '/:id'} render={(props) => {
+                    const {match: {params: {id}}} = props;
+                    return <FullUser {...props} key={id}/>
                   }}/>
                 </Switch>
               </div>
@@ -42,4 +45,4 @@ class AllUsersComponent extends Component {
     }
 }
 
-export default AllUsersComponent;
+export default withRouter(AllUsersComponent);
