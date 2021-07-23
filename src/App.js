@@ -5,6 +5,7 @@ import {
     Route,
     Link
   } from "react-router-dom";
+import AllComments from './components/all-comments/AllComments';
 import AllPostsComponent from './components/all-posts/AllPostsComponent';
 import AllUsersComponent from './components/all-users/AllUsersComponent';
 
@@ -21,12 +22,18 @@ class App extends Component {
                     <div>
                         <Link to={'/posts'}>Posts</Link>
                     </div>
+                    <div>
+                        <Link to={'/comments'}>Comments</Link>
+                    </div>
 
                     <Switch>
                         <Route path={'/users'} render={() => {
                             return <AllUsersComponent/>
                         }}/>
                         <Route path={'/posts'} component={AllPostsComponent}/>
+                        <Route path={'/comments'} render={() => {
+                            return <AllComments/>
+                        }}/>
                     </Switch>
                 </div>
             </Router>
