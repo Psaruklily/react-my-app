@@ -1,28 +1,29 @@
 import React, { Component } from 'react';
-import UserComponent from './components/user/UserComponent';
+import Users from './components/Users';
+import {Context} from './services/ContexService';
 
 class App extends Component {
 
-    users = [
-        {name: 'Lili', age: 24, status: true},
-        {name: 'Oleh', age: 28, status: true},
-        {name: 'Nastya', age: 10, status: false},
-        {name: 'Oleksii', age: 20, status: false},
-        {name: 'Andrii', age: 23, status: true}
-    ]
+    state = { users: [] };
+
+    componentDidMount() {
+        fetch('https://jsonplaceholder.typicode.com/users')
+            .then(value => value.json())
+            .then(value => {
+                this.setState({ users: value });
+            })
+    }
 
     render() {
 
+        const { users } = this.state;
+
         return (
-            <div>
-               {this.users.map((value, index) => {
-                   let name = 'target';
-                   if(index % 2) {
-                       name = 'point';
-                   }
-                   return (<UserComponent item={value} clsName={name} key={index}/>)
-               })}
-            </div>
+            <Context.Provider value={'hello Lili!!'}>
+                <div>
+                    <Users items={users} />
+                </div>
+            </Context.Provider>
         );
     }
 }
