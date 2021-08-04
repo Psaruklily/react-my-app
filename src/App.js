@@ -1,27 +1,27 @@
 import React, { Component } from 'react';
-import UserComponent from './components/user/UserComponent';
 
 class App extends Component {
 
-    users = [
-        {name: 'Lili', age: 24, status: true},
-        {name: 'Oleh', age: 28, status: true},
-        {name: 'Nastya', age: 10, status: false},
-        {name: 'Oleksii', age: 20, status: false},
-        {name: 'Andrii', age: 23, status: true}
-    ]
+    myForm = React.createRef();
+    state = {inputValue: ''};
+
+    send = (e) => {
+        e.preventDefault();
+        console.log(this.myForm.current[0].value);
+    }
+
+    commitChanges = (e) => {
+        this.setState({inputValue: e.target.value})
+    }
 
     render() {
 
         return (
             <div>
-               {this.users.map((value, index) => {
-                   let name = 'target';
-                   if(index % 2) {
-                       name = 'point';
-                   }
-                   return (<UserComponent item={value} clsName={name} key={index}/>)
-               })}
+                <form action={'/saveData'} onSubmit={this.send} ref={this.myForm}>
+                    <input onInput={this.commitChanges} value={this.state.inputValue}/>
+                    <button>Send</button>
+                </form>
             </div>
         );
     }
