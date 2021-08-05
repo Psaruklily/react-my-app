@@ -1,30 +1,39 @@
-import React, { Component } from 'react';
-import UserComponent from './components/user/UserComponent';
+import React, {useState, useEffect} from 'react';
 
-class App extends Component {
+export default function App() {
 
-    users = [
-        {name: 'Lili', age: 24, status: true},
-        {name: 'Oleh', age: 28, status: true},
-        {name: 'Nastya', age: 10, status: false},
-        {name: 'Oleksii', age: 20, status: false},
-        {name: 'Andrii', age: 23, status: true}
-    ]
+    const [counter, setCounter] = useState(1);
+    const [todo, setTodo] = useState();
 
-    render() {
+    useEffect(() => {
+        console.log('Called useEffect');
 
-        return (
-            <div>
-               {this.users.map((value, index) => {
-                   let name = 'target';
-                   if(index % 2) {
-                       name = 'point';
-                   }
-                   return (<UserComponent item={value} clsName={name} key={index}/>)
-               })}
-            </div>
-        );
-    }
+        if([2, 4, 6].some((elem) => elem === counter)) {
+            fetch(`https://jsonplaceholder.typicode.com/todos/${counter}`)
+            .then(response => response.json())
+            .then(json => setTodo(json))
+        }
+    }, [counter]);
+
+    const onClickHandler = () => setCounter((prev) => prev + 1);
+
+    return(
+        <div>
+            <h1>Reacr hooks</h1>
+            <h1>Counter</h1>
+
+            <h1>{counter}</h1>
+
+            {!!todo && (
+                <>
+                    <h2>{todo.id}</h2>
+                    <h2>{todo.title}</h2>
+                    <h2>{todo.completed.toString()}</h2>
+                </>
+            )}
+            
+            <button onClick={onClickHandler}>+</button>
+        </div>
+    )
 }
 
-export default App;
