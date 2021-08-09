@@ -1,17 +1,17 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useMemo} from 'react';
 
 const Test = () => {
 
     const [counter, setCounter] = useState(0);
 
-    useEffect(() => {
-        console.log('from main function');
+    // useEffect(() => {
+    //     console.log('from main function');
     
-        return () => {
-            console.log('from cleanup function'); 
-        }
+    //     return () => {
+    //         console.log('from cleanup function'); 
+    //     }
        
-    }, [counter]);
+    // }, [counter]);
 
     return(
         <h2 onClick={() => setCounter(prev => prev + 1) }>From test component. Counter: {counter}</h2>
@@ -21,10 +21,19 @@ const Test = () => {
 export default function App() {
 
     const [isVisible, setIsVisible] = useState(false);
+    const [arr, setArr] = useState([1, 444, 567, 45]);
+
+    const totalPrice1 = useMemo(() => {
+        console.log('from useMemo');
+        return arr.reduce((acc, el) => (acc += el), 0);
+    }, [arr]);
 
     return(
         <div>
+            <h2>total prices: {totalPrice1}</h2>
             <button onClick={() => setIsVisible(!isVisible)}>onToggle</button>
+            <button onClick={() => setArr([...arr, Math.random( )])}>Push new number</button>
+
             {isVisible && <Test />}
         </div>
     )
