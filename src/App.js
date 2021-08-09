@@ -1,30 +1,9 @@
-import React, { Component } from 'react';
-import UserComponent from './components/user/UserComponent';
+import React from 'react';
 
-class App extends Component {
+export default function App() {
+    return(
+        <div>
 
-    users = [
-        {name: 'Lili', age: 24, status: true},
-        {name: 'Oleh', age: 28, status: true},
-        {name: 'Nastya', age: 10, status: false},
-        {name: 'Oleksii', age: 20, status: false},
-        {name: 'Andrii', age: 23, status: true}
-    ]
-
-    render() {
-
-        return (
-            <div>
-               {this.users.map((value, index) => {
-                   let name = 'target';
-                   if(index % 2) {
-                       name = 'point';
-                   }
-                   return (<UserComponent item={value} clsName={name} key={index}/>)
-               })}
-            </div>
-        );
-    }
+        </div>
+    )
 }
-
-export default App;
