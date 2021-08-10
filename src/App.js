@@ -1,17 +1,8 @@
-import React, {useEffect, useState, useMemo} from 'react';
+import React, {useState, useMemo, memo} from 'react';
 
 const Test = () => {
 
     const [counter, setCounter] = useState(0);
-
-    // useEffect(() => {
-    //     console.log('from main function');
-    
-    //     return () => {
-    //         console.log('from cleanup function'); 
-    //     }
-       
-    // }, [counter]);
 
     return(
         <h2 onClick={() => setCounter(prev => prev + 1) }>From test component. Counter: {counter}</h2>
@@ -24,7 +15,6 @@ export default function App() {
     const [arr, setArr] = useState([1, 444, 567, 45]);
 
     const totalPrice1 = useMemo(() => {
-        console.log('from useMemo');
         return arr.reduce((acc, el) => (acc += el), 0);
     }, [arr]);
 
