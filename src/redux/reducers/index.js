@@ -1,22 +1,9 @@
-import {INC_COUNTER, DEC_COUNTER, RESET_COUNTER} from '../action-types';
+import {combineReducers} from 'redux';
 
-const initialState = {
-    counter: 0
-}
+import counterReducer from './counter-reducer';
+import todosReducer from './todos-reducer';
 
-export const reducer = (state=initialState, action) => {
-    switch(action.type) {
-        case INC_COUNTER: {
-            return {...state, counter: state.counter + 1};
-        }
-        case DEC_COUNTER: {
-            return {...state, counter: state.counter - 1};
-        }
-        case RESET_COUNTER: {
-            return {...state, counter: 0};
-        }
-        default: {
-            return state;
-        }
-    }
-}
+export const reducer = combineReducers({
+    todos: todosReducer,
+    counter: counterReducer
+})
