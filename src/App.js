@@ -1,6 +1,6 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import {INC_COUNTER, DEC_COUNTER, RESET_COUNTER} from './redux/action-types';
+import {incCounter, decCounter, resetCounter, setTodos} from './redux/action-creators';
 
 export default function App() {
 
@@ -11,9 +11,20 @@ export default function App() {
 
     const dispatch = useDispatch();
 
-    const handleInc = () => dispatch({type: INC_COUNTER});
-    const handleDec = () => dispatch({type: DEC_COUNTER});
-    const handleReset = () => dispatch({type: RESET_COUNTER});
+    const handleInc = () => dispatch(incCounter());
+    const handleDec = () => dispatch(decCounter());
+    const handleReset = () => dispatch(resetCounter());
+
+    useEffect(() => {
+        fetchTodos();
+    }, []);
+
+    const fetchTodos = async() => {
+        const response = await fetch('https://jsonplaceholder.typicode.com/todos');
+        const result = await response.json();
+
+        dispatch(setTodos(result));
+    }
 
     return(
         <div>
@@ -21,6 +32,12 @@ export default function App() {
             <button onClick={handleInc}>inc</button>
             <button onClick={handleDec}>dec</button>
             <button onClick={handleReset}>reset</button>
+
+            {
+                storeData.todos.map(todo => (
+                    <h2 key={todo.id}>{todo.id} - {todo.title}</h2>
+                ))
+            }
         </div>
     )
 }

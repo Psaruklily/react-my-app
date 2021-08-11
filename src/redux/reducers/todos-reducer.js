@@ -7,7 +7,8 @@ const initialState = {
 const reducer = (state=initialState, action) => {
     switch(action.type) {
         case SET_TODOS: {
-            return {...state, todos: []};
+            console.log('action', action);
+            return {...state, todos: action.payload};
         }
         case TOFFLE_TODO_STATUS: {
             return {...state, todos: []};
