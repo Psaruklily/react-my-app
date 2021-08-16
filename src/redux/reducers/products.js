@@ -1,10 +1,15 @@
+import {SET_PRODUCTS} from '../action-types';
+  
 const initialState = {
     products: []
 };
 
 const products = (state = initialState, action) => {
     switch(action.type) {
-        default: {
+        case SET_PRODUCTS: {
+            return {...state, products: action.payload}
+        }
+        default: { 
             return state;
         }
     }

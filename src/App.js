@@ -1,32 +1,35 @@
 import React, {useEffect,  useCallback} from 'react';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import { Header } from './components/header';
 import { ProductList } from './components/product-list';
 import {useServices} from './services';
+import {setProducts} from './redux';
 
 export default function App() {
 
     const {cart, wishlist, products} = useSelector(({cart: {cart}, wishlist: {wishlist}, products: {products}}) => ({
         cart, wishlist, products
     }));
+   
+    const dispatch = useDispatch();
 
-    const {productService} = useServices();
+    // const {productService} = useServices();
 
-    const fetchData = useCallback(async () => {
-        const response = await productService.getProducts();
-        const json = await response.json();
-        console.log(json); 
-    }, []);
+    // const fetchData = useCallback(async () => {
+    //     const response = await productService.getProducts();
+    //     const json = await response.json();
+    //     dispatch(setProducts(json));
+    // }, []);
 
     useEffect(() => {
-        fetchData();
+        dispatch(setProducts());
     }, []);
 
     return(
         <div>
+            {products.length}
             <Header />
-            <ProductList />
-            <h2>Redux {cart.length}, {wishlist.length}, {products.length }</h2>
+            <ProductList products={products}/>
         </div>
     )
 }
